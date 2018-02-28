@@ -1,6 +1,3 @@
-# CO395_ANN
-CO395, Neural Networks for Emotion Detection
-
 395 Machine Learning: Assignment 2
 =====================================
 
