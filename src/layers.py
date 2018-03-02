@@ -18,7 +18,7 @@ def linear_forward(X, W, b):
     Returns:
     - out: linear transformation to the incoming data
     """
-    out = np.array()
+    out = np.array([])
     """
     TODO: Implement the linear forward pass. Store your result in `out`.
     Tip: Think how X needs to be reshaped.
@@ -30,7 +30,10 @@ def linear_forward(X, W, b):
         reshaped_in = example.flatten() #Flatten to 1D vector, Row-major order
         tmp = np.dot(W.T, reshaped_in) #multiply the weights for different hidden units (Mx1 vector)
         tmp += b #add the bias terms
-        out.append(tmp)
+        if len(out)==0:
+            out = [tmp]
+        else:
+            out = np.append(out,[tmp], axis=0)
     ###########################################################################
     #                            END OF YOUR CODE                             #
     ###########################################################################
