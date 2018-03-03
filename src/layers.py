@@ -146,7 +146,11 @@ def dropout_forward(X, p=0.5, train=True, seed=42):
     ###########################################################################
     #                           BEGIN OF YOUR CODE                            #
     ###########################################################################
-
+    if train:
+        mask = np.random.binomial([np.ones(X.shape)],1-p,size=X.shape)
+        out = x * mask
+    else:
+        out = x * (1-p)
 
     ###########################################################################
     #                            END OF YOUR CODE                             #
