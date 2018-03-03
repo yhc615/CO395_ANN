@@ -87,7 +87,7 @@ def relu_forward(X):
     #                           BEGIN OF YOUR CODE                            #
     ###########################################################################
     out = X.copy()  # Must use copy in numpy to avoid pass by reference.
-    out[out < 0] = 0
+    out[out < 0] = 0 #can use conditoinal index (.where) 𝑅𝑒𝐿𝑈(𝑋) = max(0, 𝑋)
     ###########################################################################
     #                            END OF YOUR CODE                             #
     ###########################################################################
