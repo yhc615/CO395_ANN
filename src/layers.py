@@ -28,10 +28,9 @@ def linear_forward(X, W, b):
     ###########################################################################
     for example in X:
         reshaped_in = example.flatten() #Flatten to 1D vector, Row-major order
-        tmp = np.dot(W.T, reshaped_in) #multiply the weights for different hidden units (Mx1 vector)
-        tmp += b #add the bias terms
+        tmp = np.dot(W.T, reshaped_in) + b #multiply the weights for different hidden units (Mx1 vector) and add bias
         if len(out)==0:
-            out = [tmp]
+            out = [tmp]     #if the out array is empty, initialise it with first WX+b value
         else:
             out = np.append(out,[tmp], axis=0)
     ###########################################################################
