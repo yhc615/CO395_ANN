@@ -62,10 +62,9 @@ def linear_backward(dout, X, W, b):
     ###########################################################################
     #                           BEGIN OF YOUR CODE                            #
     ###########################################################################
-    dX = np.dot(dout, W.T).reshape(X.shape)
-    dW = X.reshape(X.shape[0],-1).T.dot(dout)
-    db = np.sum(dout, 0)
-
+    dX = np.dot(dout, W.T).reshape(X.shape) #dx = dout * dy/dx , dy/dx = W ==> dx = dout * W^T 
+    dW = X.reshape(X.shape[0],-1).T.dot(dout) #dw = dout * dy/dw , dy/dw = X ==> dw = X^T * dout
+    db = np.sum(dout, 0) # db = dout * dy/db , dy/db = I ==> db = dout * 1
     ###########################################################################
     #                            END OF YOUR CODE                             #
     ###########################################################################

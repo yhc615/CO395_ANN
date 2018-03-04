@@ -20,8 +20,8 @@ def random_init(n_in, n_out, weight_scale=5e-2, dtype=np.float32):
     ###########################################################################
     #                           BEGIN OF YOUR CODE                            #
     ###########################################################################
-
-
+    b = np.zeros(n_out) #initialize biases to zero ; shape (M,)
+    W = np.random.normal(0,weight_scale,(n_in,n_out)) #sample norm(0,weight_scale) of shape (D,M)
     ###########################################################################
     #                            END OF YOUR CODE                             #
     ###########################################################################
