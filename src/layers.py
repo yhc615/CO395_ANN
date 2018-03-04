@@ -181,7 +181,7 @@ def dropout_backward(dout, mask, p=0.5, train=True):
     #                           BEGIN OF YOUR CODE                            #
     ###########################################################################
     if train:
-        dX = dout * mask
+        dX = 1/(1-p)*dout * mask
     else:
         dX = dout
     ###########################################################################
