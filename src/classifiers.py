@@ -31,7 +31,7 @@ def softmax(logits, y):
     index = np.arange(N),y
     li = -np.log(dlogits[index])
     loss = np.sum(li) / N
-    dlogits[np.arange(N), y] -= 1
+    dlogits[index] -= 1
     dlogits /= N
 
     ###########################################################################
