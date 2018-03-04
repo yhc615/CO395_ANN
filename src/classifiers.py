@@ -25,7 +25,13 @@ def softmax(logits, y):
     ###########################################################################
     #                           BEGIN OF YOUR CODE                            #
     ###########################################################################
-
+    dlogits = np.exp(logits - np.max(logits))  #softmax numerator = e^(logit[j] + log(K)) where log(K) = -max(logits)
+    dlogits /= np.sum(dlogits, axis=1, keepdims=True)  #softmax denom = sum(e^(logit[j] + log(K)))
+    N = logits.shape[0]
+    li = -np.log(dlogits[np.arange(N), y])
+    loss = np.sum(li) / N
+    dlogits[np.arange(N), y] -= 1
+    dlogits /= N
 
     ###########################################################################
     #                            END OF YOUR CODE                             #
