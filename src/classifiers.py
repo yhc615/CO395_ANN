@@ -31,8 +31,8 @@ def softmax(logits, y):
     index = np.arange(N),y
     li = -np.log(dlogits[index])
     loss = np.sum(li) / N
-    dlogits[index] -= 1
-    dlogits /= N
+    dlogits[index] -= 1     #probability error for each corresponding y[i] using one hot encoding (logits[i,y[i]]  1)
+    dlogits /= N            #normalise gradient
 
     ###########################################################################
     #                            END OF YOUR CODE                             #
