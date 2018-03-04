@@ -64,7 +64,7 @@ def linear_backward(dout, X, W, b):
     ###########################################################################
     dX = np.dot(dout, W.T).reshape(X.shape)
     dW = X.reshape(X.shape[0],-1).T.dot(dout)
-    db = np.sum(dout, axis=0)
+    db = np.sum(dout, 0)
 
     ###########################################################################
     #                            END OF YOUR CODE                             #
