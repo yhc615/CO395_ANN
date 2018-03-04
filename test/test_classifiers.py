@@ -22,8 +22,6 @@ class TestSoftmax(unittest.TestCase):
         np.random.seed(395)
         X = np.random.randn(5, 10)
         y = np.random.uniform(0, 10, 5).astype(np.int16)
-        print("This is XXXXXX"); print(X)
-        print("THis is YYYYYY"); print(y)
         expected_grads = np.asarray(
             [[ 0.00322816,  0.01188412,  0.00185757,  0.04150573, -0.19303544,
              0.00260126,  0.08516417,  0.02764608,  0.00912691,  0.01002143],
