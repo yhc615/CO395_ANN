@@ -147,7 +147,7 @@ def dropout_forward(X, p=0.5, train=True, seed=42):
     #                           BEGIN OF YOUR CODE                            #
     ###########################################################################
     if train:
-        mask = np.random.binomial(1,1-p,size=X.shape) #Draw samples from a binomial distribution.
+        mask = np.random.binomial(1,1-p, X.shape) #Draw samples from a binomial distribution.
         out = 1/(1-p)*X * mask
     else:
         out = X 
