@@ -158,7 +158,19 @@ class FullyConnectedNet(object):
         #######################################################################
         #                           BEGIN OF YOUR CODE                        #
         #######################################################################
+        loss, dout = softmax(scores, y)
+        for k in range(1,self.num_layers+1):
+            loss += 0.5*self.reg*(self.params["W%d" % k]**2).sum()
 
+        dX, dW, db = linear_backward(dout, scores, W, b)
+        grads["W%d" % i+1], grads["b%d" % i+1] = dW, db
+
+        for i in range(self.num_layers-1, 0, -1):
+            dropBack = dropout_backward(dX, dropMask, **self.dropout_params)
+            reluBack = relu_backward(dropBack, relu_cache["O%d" % i])
+            W, b = self.params["W%d" % i], self.params["b%d" % i]
+            dX, dW, db = linear_backward(reluBack, linear_cache["O%d" % i], W, b)
+            grads["W%d" % i], grads["b%d" % i] = dW, db
 
         #######################################################################
         #                            END OF YOUR CODE                         #
