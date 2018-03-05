@@ -125,7 +125,18 @@ class FullyConnectedNet(object):
         #######################################################################
         #                           BEGIN OF YOUR CODE                        #
         #######################################################################
-
+        inp = X
+        for i in range(1,self.num_layers):
+            W, b = self.params["W%d" % i], self.params["b%d" % i]
+            linOut = linear_forward(inp, W, b)
+            linear_cache["O%d" % i] = linOut
+            reluOut = relu_forward(linOut)
+            relu_cache["O%d" % i] = reluOut
+            dropOut, dropMask = dropout_forward(reluOut, self.dropout_params)
+            dropout_cache["O%d" % i] = dropOut
+            inp = dropOut
+        W, b = self.params["W%d" % i+1], self.params["b%d" % i+1]
+        scores = linear_forward(inp, W, b)
 
         #######################################################################
         #                            END OF YOUR CODE                         #
