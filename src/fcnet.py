@@ -133,7 +133,7 @@ class FullyConnectedNet(object):
             reluOut = relu_forward(linOut)
             relu_cache["O%d" % i] = linOut
             dropOut, dropMask = dropout_forward(reluOut, **self.dropout_params)
-            dropout_cache["O%d" % i] = reluOut
+            dropout_cache["O%d" % i] = dropMask
             inp = dropOut
         W, b = self.params["W%d" % (i+1)], self.params["b%d" % (i+1)]
         scores = linear_forward(inp, W, b)
@@ -166,8 +166,7 @@ class FullyConnectedNet(object):
         grads["W%d" % (i+1)], grads["b%d" % (i+1)] = dW, db
 
         for i in range(self.num_layers-1, 0, -1):
-            print("test")
-            dropBack = dropout_backward(dX, dropMask, **self.dropout_params)
+            dropBack = dropout_backward(dX, dropout_cache["O%d" % i], **self.dropout_params)
             reluBack = relu_backward(dropBack, relu_cache["O%d" % i])
             W, b = self.params["W%d" % i], self.params["b%d" % i]
             dX, dW, db = linear_backward(reluBack, linear_cache["O%d" % i], W, b)
