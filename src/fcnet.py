@@ -69,7 +69,13 @@ class FullyConnectedNet(object):
         #######################################################################
         #                           BEGIN OF YOUR CODE                        #
         #######################################################################
+        #Initial weight and bias for input to hidden layer
+        self.params["W1"], self.params["b1"] = random_init(input_dim,hidden_dims[0])
 
+        for i, dims in enumerate(hidden_dims,1):
+            W_name = "W" + str(i+1)
+            b_name = "b" + str(i+1)
+            Wn , bn = random_init(hidden_dims[i-1],hidden_dims[i])
 
         #######################################################################
         #                            END OF YOUR CODE                         #
