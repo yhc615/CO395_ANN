@@ -136,7 +136,8 @@ class FullyConnectedNet(object):
             dropout_cache["O%d" % i] = dropOut
             inp = dropOut
         W, b = self.params["W%d" % i+1], self.params["b%d" % i+1]
-        scores = linear_forward(inp, W, b)
+        logits = linear_forward(inp, W, b)
+        scores = softmax(logits, y)
 
         #######################################################################
         #                            END OF YOUR CODE                         #
