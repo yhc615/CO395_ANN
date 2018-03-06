@@ -21,7 +21,7 @@ model = FullyConnectedNet(hidden_dims=[100 for i in range(1)], num_classes=10, d
 solver = Solver(model, data,
                 update_rule='sgd',
                 optim_config={
-                  'learning_rate': 1.5e-3,
+                  'learning_rate': 5.4e-3,
                 },
                 lr_decay=0.95,
                 num_epochs=20, batch_size=2000,

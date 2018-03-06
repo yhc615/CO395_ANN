@@ -19,7 +19,7 @@ data = {
       'X_val':  out['X_val'], # validation data
       'y_val': out['y_val'] # validation labels
     }
-model = FullyConnectedNet(hidden_dims=[100 for i in range(1)], num_classes=10, dropout=0.5, reg=3.14)
+model = FullyConnectedNet(hidden_dims=[100], num_classes=10, dropout=0.5, reg=3.14)
 solver = Solver(model, data,
                 update_rule='sgd',
                 optim_config={
