@@ -11,6 +11,7 @@ TODO: Overfit the network with 50 samples of CIFAR-10
 ###########################################################################
 #                           BEGIN OF YOUR CODE                            #
 ###########################################################################
+
 out = get_CIFAR10_data(num_training=50,num_validation=20, num_test=0)
 data = {
       'X_train': out['X_train'], # training data
