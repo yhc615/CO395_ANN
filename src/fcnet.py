@@ -163,14 +163,14 @@ class FullyConnectedNet(object):
             loss += 0.5*self.reg*(self.params["W%d" % k]**2).sum()
 
         dX, dW, db = linear_backward(dout, inp, W, b)
-        grads["W%d" % (i+1)], grads["b%d" % (i+1)] = dW, db
+        grads["W%d" % (i+1)], grads["b%d" % (i+1)] = dW+self.reg*W, db
 
         for i in range(self.num_layers-1, 0, -1):
             dropBack = dropout_backward(dX, dropout_cache["O%d" % i], **self.dropout_params)
             reluBack = relu_backward(dropBack, relu_cache["O%d" % i])
             W, b = self.params["W%d" % i], self.params["b%d" % i]
             dX, dW, db = linear_backward(reluBack, linear_cache["O%d" % i], W, b)
-            grads["W%d" % i], grads["b%d" % i] = dW, db
+            grads["W%d" % i], grads["b%d" % i] = dW+self.reg*W, db
 
         #######################################################################
         #                            END OF YOUR CODE                         #
