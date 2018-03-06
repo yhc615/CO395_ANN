@@ -29,7 +29,7 @@ def softmax(logits, y):
     N = logits.shape[0]     # N = number of samples
     dlogits /= np.sum(dlogits, axis=1).reshape(N,-1)  #softmax denom = sum(e^(logit[j] + log(K))) where we sum for each example (row)
     index = np.arange(N),y  # From every row, choose y[i] column
-    li = -np.log(dlogits[index])
+    li = -np.log(dlogits[index].clip(min=0.000001))
     loss = np.sum(li) / N
     dlogits[index] -= 1     #probability error for each corresponding y[i] using one hot encoding (logits[i,y[i]]  1)
     dlogits /= N            #normalise gradient
