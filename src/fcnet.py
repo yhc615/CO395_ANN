@@ -168,10 +168,9 @@ class FullyConnectedNet(object):
         grads["W%d" % (i+1)], grads["b%d" % (i+1)] = dW+self.reg*W, db
 
         for i in range(self.num_layers-1, 0, -1):
-            dropBack = dX
             if self.use_dropout:
-                dropBack = dropout_backward(dX, dropout_cache["O%d" % i], **self.dropout_params)
-            reluBack = relu_backward(dropBack, relu_cache["O%d" % i])
+                dX = dropout_backward(dX, dropout_cache["O%d" % i], **self.dropout_params)
+            reluBack = relu_backward(dX, relu_cache["O%d" % i])
             W, b = self.params["W%d" % i], self.params["b%d" % i]
             dX, dW, db = linear_backward(reluBack, linear_cache["O%d" % i], W, b)
             grads["W%d" % i], grads["b%d" % i] = dW+self.reg*W, db
