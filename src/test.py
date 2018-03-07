@@ -1,4 +1,4 @@
-def test_fer_model(img_folder, model="/path/to/model"): #Q6
+def test_fer_model(img_folder, model="/path/to/model"): #Q5
     """
     Given a folder with images, load the images (in lexico-graphical ordering
     according to the file name of the images) and your best model to predict
@@ -14,7 +14,7 @@ def test_fer_model(img_folder, model="/path/to/model"): #Q6
     ### End of code
     return preds
 
-def test_deep_fer_model(img_folder, model="/path/to/model"): #Q5
+def test_deep_fer_model(img_folder, model="/path/to/model"): #Q6
     """
     Given a folder with images, load the images (in lexico-graphical ordering
     according to the file name of the images) and your best model to predict
