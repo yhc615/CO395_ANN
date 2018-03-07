@@ -26,7 +26,7 @@ solver = Solver(model, data,
                   'learning_rate': 1e-3,
                 },
                 lr_decay=0.95,
-                num_epochs=2, batch_size=250,
+                num_epochs=2, batch_size=2500,
                 print_every=100)
 solver.train()
 
