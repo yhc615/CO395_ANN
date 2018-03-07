@@ -1,16 +1,21 @@
 import matplotlib.image as mpimg
 import numpy as np
 
-XY_train, XY_test = [],[]
+X_train = np.array([])
+Y_train = np.array([]) 
+X_test = np.array([])
+Y_test = np.array([])
 
 with open("datasets/FER2013/labels_public.txt","r") as labels:
 	for line in labels:
 		img,emotion = line.split(",")
 		if(img.split("/")[0] == "Train"):
-			XY_train.append((img,int(emotion.split("\n")[0])))
+			X_train = np.append(X_train,img)
+			Y_train = np.append(Y_train, int(emotion.split("\n")[0]))
 		elif (img.split("/")[0] == "Test"):
-			XY_test.append((img,int(emotion.split("\n")[0])))
+			X_test = np.append(X_test,img)
+			Y_test = np.append(Y_test, int(emotion.split("\n")[0]))
+print(X_test)
+#img = mpimg.imread("datasets/FER2013/"+ XY_train[0][0])
 
-img = mpimg.imread("datasets/FER2013/"+ XY_train[0][0])
-
-print(img)
+#print(img)
