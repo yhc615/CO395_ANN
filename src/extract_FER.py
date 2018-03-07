@@ -1,3 +1,6 @@
+import matplotlib.image as mpimg
+import numpy as np
+
 XY_train, XY_test = [],[]
 
 with open("datasets/FER2013/labels_public.txt","r") as labels:
@@ -7,5 +10,6 @@ with open("datasets/FER2013/labels_public.txt","r") as labels:
 			XY_train.append((img,int(emotion.split("\n")[0])))
 		elif (img.split("/")[0] == "Test"):
 			XY_test.append((img,int(emotion.split("\n")[0])))
-print(XY_train)
+
+img = mpimg.imread((XY_train[0])[0])
 
