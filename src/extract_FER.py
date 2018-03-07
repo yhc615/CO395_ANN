@@ -1,15 +1,11 @@
-X = []
-Y=[]
+XY_train, XY_test = [],[]
 
 with open("datasets/FER2013/labels_public.txt","r") as labels:
-	i = 0
 	for line in labels:
 		img,emotion = line.split(",")
-		if i>0:
-			#if(img.split("/"))
-			X.append(img)
-			Y.append(emotion)
-			print(Y)
-		i+=1
+		if(img.split("/")[0] == "Train"):
+			XY_train.append((img,int(emotion.split("\n")[0])))
+		elif (img.split("/")[0] == "Test"):
+			XY_test.append((img,int(emotion.split("\n")[0])))
+print(XY_train)
 
-print(train)
