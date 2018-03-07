@@ -11,5 +11,6 @@ with open("datasets/FER2013/labels_public.txt","r") as labels:
 		elif (img.split("/")[0] == "Test"):
 			XY_test.append((img,int(emotion.split("\n")[0])))
 
-img = mpimg.imread((XY_train[0])[0])
+img = mpimg.imread("datasets/FER2013/"+ XY_train[0][0])
 
+print(img)
