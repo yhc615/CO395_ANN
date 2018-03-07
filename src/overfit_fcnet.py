@@ -12,22 +12,22 @@ TODO: Overfit the network with 50 samples of CIFAR-10
 #                           BEGIN OF YOUR CODE                            #
 ###########################################################################
 
-out = get_CIFAR10_data(num_training=50,num_validation=20, num_test=0)
+out = get_CIFAR10_data(num_training=50)
 data = {
       'X_train': out['X_train'], # training data
       'y_train': out['y_train'], # training labels
       'X_val':  out['X_val'], # validation data
       'y_val': out['y_val'] # validation labels
     }
-model = FullyConnectedNet(hidden_dims=[100 for i in range(1)], num_classes=10, dropout=0.0, reg=0)
+model = FullyConnectedNet(hidden_dims=[100, 100], num_classes=10)
 solver = Solver(model, data,
                 update_rule='sgd',
                 optim_config={
-                  'learning_rate': 3e-3,
+                  'learning_rate': 1e-4,
                 },
                 lr_decay=0.95,
-                num_epochs=20, batch_size=3000,
-                print_every=5)
+                num_epochs=20, batch_size=25,
+                print_every=10)
 solver.train()
 
 #-----------------------Plotting--------------------------
@@ -43,7 +43,7 @@ plt.plot([0.5]*len(solver.val_acc_history), 'k--')
 plt.xlabel('Epoch')
 plt.legend(loc='lower right')
 plt.gcf().set_size_inches(15,12)
-plt.show()
+#plt.show()
 
 ##############################################################################
 #                             END OF YOUR CODE                               #
