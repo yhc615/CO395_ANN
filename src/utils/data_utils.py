@@ -1,8 +1,8 @@
 from builtins import range
 from six.moves import cPickle as pickle
 import numpy as np
+import matplotlib.image as mpimg
 import os
-#from scipy.misc import imread
 import platform
 
 def load_pickle(f):
@@ -100,9 +100,9 @@ def pickle_FER():#loads whole FER dataset
                 Y_test.append(int(emotion.split("\n")[0]))
     imgDict = {
     'X_train' : np.asarray(X_train),
-    'Y_train' : np.asarray(Y_train),
+    'y_train' : np.asarray(Y_train),
     'X_test' : np.asarray(X_test),
-    'Y_test' : np.asarray(Y_test)
+    'y_test' : np.asarray(Y_test)
     }
 
     pickle.dump(imgDict, open("datasets/FER2013/mainDat", "wb"))
@@ -115,7 +115,8 @@ def get_FER(num_training=49000, num_validation=1000, num_test=1000):
     """
     # Load the raw CIFAR-10 data
     fer_dir = './datasets/FER2013/mainDat'
-    X_train, y_train, X_test, y_test = load_pickle(fer_dir)
+    dat = pickle.load(open(fer_dir, "rb"))
+    X_train, y_train, X_test, y_test = dat['X_train'], dat['y_train'], dat['X_test'], dat['y_test']
 
     # Subsample the data
     mask = list(range(num_training, num_training + num_validation))
