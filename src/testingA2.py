@@ -1,6 +1,7 @@
 import numpy as np
 import time
 import pickle
+import matplotlib.pyplot as plt
 from src.fcnet import FullyConnectedNet
 from src.utils.solver import Solver
 from src.utils.data_utils import get_FER, pickle_FER
@@ -51,7 +52,7 @@ else:
   solver = Solver(model, data,
                 update_rule='sgd_momentum',
                 optim_config={
-                  'learning_rate': 1e-3,#0.0018742807840127864
+                  'learning_rate': 0.0018742807840127864,
                   'momentum': 0.5
                 },
                 lr_decay=0.8,
@@ -59,7 +60,22 @@ else:
                 print_every=100)
   solver.train()
 
-#pickle.dump(model, (open("./models/assignment2", "wb")))
+pickle.dump(model, (open("./models/assignment2", "wb")))
+
+plt.subplot(2,1,1)
+plt.title("Training loss")
+plt.plot(solver.loss_history,"o")
+plt.xlabel('Iteration')
+
+plt.subplot(2,1,2)
+plt.title('Accuracy')
+plt.plot(solver.train_acc_history,'-o', label='train')
+plt.plot(solver.val_acc_history,'-o', label='val')
+plt.plot([0.5]*len(solver.val_acc_history), 'k--')
+plt.xlabel('Epoch')
+plt.legend(loc='lower right')
+plt.subplots_adjust(.1,.1,.9,.9,.2,.5)
+plt.show()
 ##############################################################################
 #                             END OF YOUR CODE                               #
 ##############################################################################
