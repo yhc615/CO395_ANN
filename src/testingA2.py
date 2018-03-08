@@ -11,6 +11,46 @@ accuracy on the validation set.
 ###########################################################################
 #                           BEGIN OF YOUR CODE                            #
 ###########################################################################
+def confusionMatrix(actual, predicted):
+  confusion = numpy.zeros(shape=(7,7)).astype(int)
+  for i,a in enumerate(actual):
+    confusion[actual[i]-1][predicted[i]-1] +=1
+
+  return confusion
+
+def conMatStats(confusion):
+  recallrate, precisionrate,F1 = [0]*7,[0]*7,[0]*7
+  
+  TP,FP,TN,FN =[0]*7,[0]*7,[0]*7,[0]*7
+  
+  for i in range(7):
+    for j in range(7):
+      TP[i] = confusion[i][i]
+      if j != i:
+        FN[i] += confusion[i][j]
+        
+        FP[i] += confusion[j][i]
+        for k in range(7):
+          if k!=i:
+            TN[i] += confusion[j][k]
+
+  for i in range(7):
+    if(TP[i] != 0 or FN[i] !=0):
+      recallrate[i] = float(TP[i])/(TP[i]+FN[i])
+    if(TP[i] != 0 or FP[i] !=0):
+      precisionrate[i] = float(TP[i])/(TP[i]+FP[i])
+    if(precisionrate[i] !=0 or recallrate[i] != 0):
+      F1[i] = 2*(precisionrate[i]*recallrate[i])/(precisionrate[i]+recallrate[i])
+    classificationrate = 1-(1/numpy.sum(confusion))*(numpy.sum(confusion)-numpy.trace(confusion))
+
+
+return TP, FP, TN, FN, recallrate, precisionrate, F1,classificationrate
+
+
+
+
+
+
 #pickle_FER()
 
 out = get_FER(num_training=10000)
@@ -21,15 +61,17 @@ data = {
       'y_val': out['y_val'] # validation labels
     }
 
-model = FullyConnectedNet(input_dim=48*48*1, hidden_dims=[40], num_classes=7, dropout=0.6, reg=0, seed=int(time.time()))
+
+model = FullyConnectedNet(input_dim=48*48*1, hidden_dims=[30], num_classes=7, dropout=0, reg=0, seed=int(time.time()))
+
 solver = Solver(model, data,
               update_rule='sgd_momentum',
               optim_config={
-                'learning_rate': 1e-3
+                'learning_rate': 1.5e-3
               },
-              lr_decay=0.95,
-              num_epochs=250, batch_size=1000,
-              print_every=25)
+              lr_decay=0.8,
+              num_epochs=250, batch_size=100,
+              print_every=100)
 solver.train()
 ##############################################################################
 #                             END OF YOUR CODE                               #
