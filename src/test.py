@@ -35,8 +35,12 @@ return TP, FP, TN, FN, recallrate, precisionrate, F1, classificationrate
 
 def test():
     preds = test_fer_model("./datasets/FER2013/Test/", "./models/assignment2")
-    actuals = 
-    conMat = confusionMatrix(actuals,preds)
+    with open("datasets/FER2013/labels_public.txt","r") as labels:
+        for line in labels:
+            _,emotion = line.split(",")
+            if (img.split("/")[0] == "Test"):
+                Y.append(int(emotion.split("\n")[0]))
+    conMat = confusionMatrix(Y,preds)
 
 def test_fer_model(img_folder, model="./models/assignment2"): #Q5
     """
@@ -60,7 +64,7 @@ def test_fer_model(img_folder, model="./models/assignment2"): #Q5
             X.append(img)
 
     scores = modelDat.loss(X)
-    preds = argmax(scores)
+    preds = argmax(scores, axis=0)
     
     ### End of code
     return preds
