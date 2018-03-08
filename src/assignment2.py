@@ -11,7 +11,7 @@ accuracy on the validation set.
 ###########################################################################
 #                           BEGIN OF YOUR CODE                            #
 ###########################################################################
-pickle_FER()
+#pickle_FER()
 
 out = get_FER(num_training=25000)
 data = {
