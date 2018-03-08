@@ -42,7 +42,7 @@ while not reached:
                   num_epochs=30, batch_size=100,
                   print_every=25)
   solver.train()
-  if max(solver.loss_history) == 0.3:
+  if max(solver.val_acc_history) == 0.3:
     reached = True
   count += 1
 
