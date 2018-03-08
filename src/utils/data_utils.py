@@ -117,7 +117,7 @@ def get_FER(num_training=49000, num_validation=1000, num_test=1000,subtract_mean
     fer_dir = './datasets/FER2013/mainDat'
     dat = pickle.load(open(fer_dir, "rb"))
     X_train, y_train, X_test, y_test = dat['X_train'], dat['y_train'], dat['X_test'] , dat['y_test']
-    print (np.shape(X_train))
+
     # Subsample the data
     mask = list(range(num_training, num_training + num_validation))
     X_val = X_train[mask].astype("float")
@@ -137,11 +137,10 @@ def get_FER(num_training=49000, num_validation=1000, num_test=1000,subtract_mean
         X_test -= mean_image
 
     # Transpose so that channels come first
-    X_train = X_train.transpose(0, 3, 1, 2).copy()
-    X_val = X_val.transpose(0, 3, 1, 2).copy()
-    X_test = X_test.transpose(0, 3, 1, 2).copy()
-    print (np.shape(X_train))
-    print(type(X_train[0][0][0][0]))
+    X_train = X_train[:,:,:,0]#X_train.transpose(0, 3, 1, 2).copy()
+    X_val = X_val[:,:,:,0]#X_val.transpose(0, 3, 1, 2).copy()
+    X_test = X_test[:,:,:,0]#X_test.transpose(0, 3, 1, 2).copy()
+
     # Package data into a dictionary
     return {
       'X_train': X_train, 'y_train': y_train,

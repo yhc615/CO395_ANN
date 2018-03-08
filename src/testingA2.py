@@ -21,32 +21,16 @@ data = {
       'y_val': out['y_val'] # validation labels
     }
 
-reached = False
-lr = 1e-2
-ws = 1e-2
-
-count = 1
-while not reached:
-  np.random.seed(int(time.time()))
-  print("iteration number{}".format(count))
-  ws = 10**(np.random.uniform(-5,-1))
-  lr = 10**(np.random.uniform(-5,-3))
-  print("testing lr, ws: {},{}".format(lr,ws))
-  model = FullyConnectedNet(input_dim=48*48*3, hidden_dims=[250, 50], num_classes=7, dropout=0, reg=3)#weight_scale=ws)
-  solver = Solver(model, data,
-                  update_rule='sgd_momentum',
-                  optim_config={
-                    'learning_rate': lr
-                  },
-                  lr_decay=0.95,
-                  num_epochs=30, batch_size=100,
-                  print_every=25)
-  solver.train()
-  if max(solver.val_acc_history) >= 0.3:
-    reached = True
-  count += 1
-
-print("Final lr and ws: {},{}".format(lr,ws))
+model = FullyConnectedNet(input_dim=48*48*1, hidden_dims=[40], num_classes=7, dropout=0, reg=0, seed=int(time.time()))
+solver = Solver(model, data,
+              update_rule='sgd_momentum',
+              optim_config={
+                'learning_rate': 1e-3
+              },
+              lr_decay=0.95,
+              num_epochs=250, batch_size=1000,
+              print_every=25)
+solver.train()
 ##############################################################################
 #                             END OF YOUR CODE                               #
 ##############################################################################
