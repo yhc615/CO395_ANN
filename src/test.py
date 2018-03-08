@@ -95,7 +95,7 @@ def test():
         for line in labels:
             img,emotion = line.split(",")
             if (img.split("/")[0] == "Test"):
-                if(int(emotion.split("\n")[0]) == 1):
+                if(int(emotion.split("\n")[0]) == 6):
                     i+=1
                 Y.append(int(emotion.split("\n")[0]))
     print(i)
