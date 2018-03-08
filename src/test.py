@@ -138,7 +138,7 @@ def train_FER2013():
     solver = Solver(model, data,
                   update_rule='sgd_momentum',
                   optim_config={
-                    'learning_rate': 1e-3,#0.0018742807840127864
+                    'learning_rate': 0.0018742807840127864,
                     'momentum': 0.5
                   },
                   lr_decay=0.8,
@@ -150,7 +150,7 @@ def train_FER2013():
 ##############################################################################
 #                             END OF YOUR CODE                               #
 ##############################################################################
-#train_FER2013() use to train the FER2013 model
+train_FER2013() #use to train the FER2013 model
 def test_deep_fer_model(img_folder, model="/path/to/model"): #Q6 Not Implemented
     """
     Given a folder with images, load the images (in lexico-graphical ordering
