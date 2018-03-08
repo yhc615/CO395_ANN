@@ -107,7 +107,7 @@ def pickle_FER():#loads whole FER dataset
 
     pickle.dump(imgDict, open("datasets/FER2013/mainDat", "wb"))
 
-def get_FER(num_training=49000, num_validation=1000, num_test=1000):
+def get_FER(num_training=49000, num_validation=1000, num_test=1000,subtract_mean=True):
     """
     Load the CIFAR-10 dataset from disk and perform preprocessing to prepare
     it for classifiers. These are the same steps as we used for the SVM, but
@@ -116,24 +116,32 @@ def get_FER(num_training=49000, num_validation=1000, num_test=1000):
     # Load the raw CIFAR-10 data
     fer_dir = './datasets/FER2013/mainDat'
     dat = pickle.load(open(fer_dir, "rb"))
-    X_train, y_train, X_test, y_test = dat['X_train'], dat['y_train'], dat['X_test'], dat['y_test']
-
+    X_train, y_train, X_test, y_test = dat['X_train'], dat['y_train'], dat['X_test'] , dat['y_test']
+    print (np.shape(X_train))
     # Subsample the data
     mask = list(range(num_training, num_training + num_validation))
-    X_val = X_train[mask]
+    X_val = X_train[mask].astype("float")
     y_val = y_train[mask]
     mask = list(range(num_training))
-    X_train = X_train[mask]
+    X_train = X_train[mask].astype("float")
     y_train = y_train[mask]
     mask = list(range(num_test))
-    X_test = X_test[mask]
+    X_test = X_test[mask].astype("float")
     y_test = y_test[mask]
+
+    # Normalize the data: subtract the mean image
+    if subtract_mean:
+        mean_image = np.mean(X_train, axis=0)
+        X_train -= mean_image
+        X_val -= mean_image
+        X_test -= mean_image
 
     # Transpose so that channels come first
     X_train = X_train.transpose(0, 3, 1, 2).copy()
     X_val = X_val.transpose(0, 3, 1, 2).copy()
     X_test = X_test.transpose(0, 3, 1, 2).copy()
-
+    print (np.shape(X_train))
+    print(type(X_train[0][0][0][0]))
     # Package data into a dictionary
     return {
       'X_train': X_train, 'y_train': y_train,
