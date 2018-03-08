@@ -6,8 +6,8 @@ import numpy as np
 def confusionMatrix(actual, predicted):
     confusion = np.zeros(shape=(7,7)).astype(int)
     for i,a in enumerate(actual):
-        confusion[actual[i]-1][predicted[i]-1] +=1
-
+        confusion[actual[i]][predicted[i]] +=1
+    print(confusion)
     return confusion
 
 def conMatStats(confusion):
@@ -88,13 +88,17 @@ def test_deep_fer_model(img_folder, model="/path/to/model"): #Q6
 
 def test():
     Y=[]
+    i = 0
     preds = test_fer_model("./datasets/FER2013/Test/", "./models/assignment2")
     with open("datasets/FER2013/labels_public.txt","r") as labels:
         Y = []
         for line in labels:
             img,emotion = line.split(",")
             if (img.split("/")[0] == "Test"):
+                if(int(emotion.split("\n")[0]) == 1):
+                    i+=1
                 Y.append(int(emotion.split("\n")[0]))
+    print(i)
     conMat = confusionMatrix(Y,preds)
     for row in conMatStats(conMat):
       print(row)
