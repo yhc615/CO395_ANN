@@ -20,14 +20,14 @@ data = {
       'X_val':  out['X_val'], # validation data
       'y_val': out['y_val'] # validation labels
     }
-model = FullyConnectedNet(hidden_dims=[100], num_classes=7, dropout=0, reg=0.5)
+model = FullyConnectedNet(input_dim=48*48*3, hidden_dims=[100], num_classes=7, dropout=0, reg=0.5)
 solver = Solver(model, data,
                 update_rule='sgd_momentum',
                 optim_config={
                   'learning_rate': 2e-3,
                 },
                 lr_decay=0.95,
-                num_epochs=250, batch_size=250,
+                num_epochs=20, batch_size=250,
                 print_every=100)
 solver.train()
 
