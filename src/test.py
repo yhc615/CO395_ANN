@@ -55,10 +55,15 @@ def test_fer_model(img_folder, model="./models/assignment2"): #Q5
     for filename in os.listdir(img_folder):
         if filename.endswith(".jpg"): 
             img = mpimg.imread(img_folder + "/" + filename)
-            img = img[:,:,0]
             X.append(img)
 
-    X = np.asarray(X)
+    X = np.asarray(X).astype("float")
+    subtract_mean = True
+    if subtract_mean:
+        mean_image = np.mean(X, axis=0)
+        X -= mean_image
+    X = X[:,:,:,0]
+
     scores = modelDat.loss(X)
     preds = np.argmax(scores, axis=1)
     
