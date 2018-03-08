@@ -51,13 +51,13 @@ def test_fer_model(img_folder, model="./models/assignment2"): #Q5
     preds = None
     ### Start your code here
     modelDat = pickle.load(open(model, "rb"))
-    X = np.array([])
+    X = []
     for filename in os.listdir(img_folder):
         if filename.endswith(".jpg"): 
-            # print(os.path.join(directory, filename))
             img = mpimg.imread(img_folder + "/" + filename)
-            np.append(X, img)
+            X.append(img)
 
+    X = np.asarray(X)
     scores = modelDat.loss(X)
     preds = np.argmax(scores, axis=0)
     
