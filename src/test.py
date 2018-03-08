@@ -60,7 +60,7 @@ def test_fer_model(img_folder, model="./models/assignment2"): #Q5
 
     X = np.asarray(X)
     scores = modelDat.loss(X)
-    preds = np.argmax(scores, axis=0)
+    preds = np.argmax(scores, axis=1)
     
     ### End of code
     return preds
@@ -90,5 +90,6 @@ def test():
             if (img.split("/")[0] == "Test"):
                 Y.append(int(emotion.split("\n")[0]))
     conMat = confusionMatrix(Y,preds)
+    print(conMatStats(conMat))
 
 test()
