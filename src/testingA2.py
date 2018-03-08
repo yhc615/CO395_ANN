@@ -1,5 +1,6 @@
 import numpy as np
 import time
+import pickle
 from src.fcnet import FullyConnectedNet
 from src.utils.solver import Solver
 from src.utils.data_utils import get_FER, pickle_FER
@@ -29,7 +30,7 @@ solver = Solver(model, data,
                 'momentum': 0.5
               },
               lr_decay=0.8,
-              num_epochs=250, batch_size=100,
+              num_epochs=100, batch_size=100,
               print_every=100)
 solver.train()
 
