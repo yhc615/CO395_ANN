@@ -13,7 +13,7 @@ accuracy on the validation set.
 ###########################################################################
 #pickle_FER()
 
-out = get_FER(num_training=1000)
+out = get_FER(num_training=10000)
 data = {
       'X_train': out['X_train'], # training data
       'y_train': out['y_train'], # training labels
@@ -30,9 +30,9 @@ while not reached:
   np.random.seed(int(time.time()))
   print("iteration number{}".format(count))
   ws = 10**(np.random.uniform(-5,-1))
-  lr = 10**(np.random.uniform(-3,-2))
+  lr = 10**(np.random.uniform(-5,-3))
   print("testing lr, ws: {},{}".format(lr,ws))
-  model = FullyConnectedNet(input_dim=48*48*3, hidden_dims=[100], num_classes=7, dropout=0.5, reg=0.5)#weight_scale=ws)
+  model = FullyConnectedNet(input_dim=48*48*3, hidden_dims=[250, 50], num_classes=7, dropout=0, reg=3)#weight_scale=ws)
   solver = Solver(model, data,
                   update_rule='sgd_momentum',
                   optim_config={
@@ -42,7 +42,7 @@ while not reached:
                   num_epochs=30, batch_size=100,
                   print_every=25)
   solver.train()
-  if max(solver.val_acc_history) == 0.3:
+  if max(solver.val_acc_history) >= 0.3:
     reached = True
   count += 1
 
