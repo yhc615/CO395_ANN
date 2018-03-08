@@ -79,3 +79,63 @@ def get_CIFAR10_data(num_training=49000, num_validation=1000, num_test=1000,
       'X_val': X_val, 'y_val': y_val,
       'X_test': X_test, 'y_test': y_test,
     }
+
+def pickle_FER():#loads whole FER dataset
+    X_train = []
+    Y_train = []
+    X_test = []
+    Y_test = []
+
+    with open("datasets/FER2013/labels_public.txt","r") as labels:
+        for line in labels:
+            img,emotion = line.split(",")
+            if(img.split("/")[0] == "Train"):
+                img_data = mpimg.imread("datasets/FER2013/"+ img)
+                print(img_data)
+                X_train.append(img_data)
+                Y_train.append(int(emotion.split("\n")[0]))
+            elif (img.split("/")[0] == "Test"):
+                img_data = mpimg.imread("datasets/FER2013/"+ img)
+                X_test.append(img_data)
+                Y_test.append(int(emotion.split("\n")[0]))
+    imgDict = {
+    'X_train' : np.asarray(X_train),
+    'Y_train' : np.asarray(Y_train),
+    'X_test' : np.asarray(X_test),
+    'Y_test' : np.asarray(Y_test)
+    }
+
+    pickle.dump(imgDict, open("datasets/FER2013/mainDat", "wb"))
+
+def get_FER(num_training=49000, num_validation=1000, num_test=1000):
+    """
+    Load the CIFAR-10 dataset from disk and perform preprocessing to prepare
+    it for classifiers. These are the same steps as we used for the SVM, but
+    condensed to a single function.
+    """
+    # Load the raw CIFAR-10 data
+    fer_dir = './datasets/FER2013/mainDat'
+    X_train, y_train, X_test, y_test = load_pickle(fer_dir)
+
+    # Subsample the data
+    mask = list(range(num_training, num_training + num_validation))
+    X_val = X_train[mask]
+    y_val = y_train[mask]
+    mask = list(range(num_training))
+    X_train = X_train[mask]
+    y_train = y_train[mask]
+    mask = list(range(num_test))
+    X_test = X_test[mask]
+    y_test = y_test[mask]
+
+    # Transpose so that channels come first
+    X_train = X_train.transpose(0, 3, 1, 2).copy()
+    X_val = X_val.transpose(0, 3, 1, 2).copy()
+    X_test = X_test.transpose(0, 3, 1, 2).copy()
+
+    # Package data into a dictionary
+    return {
+      'X_train': X_train, 'y_train': y_train,
+      'X_val': X_val, 'y_val': y_val,
+      'X_test': X_test, 'y_test': y_test,
+    }
