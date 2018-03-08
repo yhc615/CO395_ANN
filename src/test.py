@@ -96,6 +96,7 @@ def test():
             if (img.split("/")[0] == "Test"):
                 Y.append(int(emotion.split("\n")[0]))
     conMat = confusionMatrix(Y,preds)
-    print(conMatStats(conMat))
+    for row in conMatStats(conMat):
+      print(row)
 
 test()
