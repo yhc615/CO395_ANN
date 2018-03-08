@@ -20,6 +20,7 @@ data = {
       'X_val':  out['X_val'], # validation data
       'y_val': out['y_val'] # validation labels
     }
+
 reached = False
 lr = 1e-2
 ws = 1e-2
