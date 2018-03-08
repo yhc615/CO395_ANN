@@ -21,7 +21,7 @@ data = {
       'y_val': out['y_val'] # validation labels
     }
 
-model = FullyConnectedNet(input_dim=48*48*1, hidden_dims=[40], num_classes=7, dropout=0, reg=0, seed=int(time.time()))
+model = FullyConnectedNet(input_dim=48*48*1, hidden_dims=[40], num_classes=7, dropout=0.6, reg=0, seed=int(time.time()))
 solver = Solver(model, data,
               update_rule='sgd_momentum',
               optim_config={
