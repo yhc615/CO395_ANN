@@ -1,7 +1,7 @@
 import matplotlib.image as mpimg
 import numpy as np
 
-def load_FER():#loads whole FER dataset, with the image paths for the X values
+def load_FER():#loads whole FER dataset
 	X_train = []
 	Y_train = []
 	X_test = []
@@ -11,10 +11,13 @@ def load_FER():#loads whole FER dataset, with the image paths for the X values
 		for line in labels:
 			img,emotion = line.split(",")
 			if(img.split("/")[0] == "Train"):
-				X_train.append(img)
+				img_data = mpimg.imread("datasets/FER2013/"+ img)
+				print(img_data)
+				X_train.append(img_data)
 				Y_train.append(int(emotion.split("\n")[0]))
 			elif (img.split("/")[0] == "Test"):
-				X_test.append(img)
+				img_data = mpimg.imread("datasets/FER2013/"+ img)
+				X_test.append(img_data)
 				Y_test.append(int(emotion.split("\n")[0]))
 	return {
 	'X_train' : np.asarray(X_train),
