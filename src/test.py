@@ -81,6 +81,7 @@ def test_deep_fer_model(img_folder, model="/path/to/model"): #Q6
     return preds
 
 def test():
+    Y=[]
     preds = test_fer_model("./datasets/FER2013/Test/", "./models/assignment2")
     with open("datasets/FER2013/labels_public.txt","r") as labels:
         for line in labels:
