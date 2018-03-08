@@ -156,7 +156,7 @@ def dropout_forward(X, p=0.5, train=True, seed=42):
     return out, mask
 
 
-def dropout_backward(dout, mask, p=0.5, train=True):
+def dropout_backward(dout, mask, p=0.5, train=True, seed=None):
     """
     Compute the backward pass for dropout
     Args:
