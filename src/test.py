@@ -11,6 +11,8 @@ def test_fer_model(img_folder, model="/path/to/model"): #Q5
     """
     preds = None
     ### Start your code here
+    modelDat = pickle.load(open(model, "rb"))
+    
     ### End of code
     return preds
 

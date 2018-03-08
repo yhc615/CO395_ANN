@@ -21,16 +21,19 @@ data = {
       'y_val': out['y_val'] # validation labels
     }
 
-model = FullyConnectedNet(input_dim=48*48*1, hidden_dims=[45], num_classes=7, dropout=0.3, reg=0, seed=int(time.time()))
+model = FullyConnectedNet(input_dim=48*48*1, hidden_dims=[40], num_classes=7, dropout=0, reg=0, seed=int(time.time()))
 solver = Solver(model, data,
               update_rule='sgd_momentum',
               optim_config={
-                'learning_rate': 5e-3
+                'learning_rate': 1e-3,
+                'momentum': 0.5
               },
               lr_decay=0.95,
               num_epochs=250, batch_size=100,
               print_every=100)
 solver.train()
+
+pickle.dump(model, (open("./models/assignment2", "wb")))
 ##############################################################################
 #                             END OF YOUR CODE                               #
 ##############################################################################
