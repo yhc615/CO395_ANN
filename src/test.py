@@ -150,7 +150,7 @@ def train_FER2013():
 ##############################################################################
 #                             END OF YOUR CODE                               #
 ##############################################################################
-train_FER2013() #use to train the FER2013 model
+#train_FER2013() #use to train the FER2013 model
 def test_deep_fer_model(img_folder, model="/path/to/model"): #Q6 Not Implemented
     """
     Given a folder with images, load the images (in lexico-graphical ordering
