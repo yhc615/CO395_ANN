@@ -21,10 +21,10 @@ def conMatStats(confusion):
             if j != i:
                 FN[i] += confusion[i][j]
         
-            FP[i] += confusion[j][i]
-        for k in range(7):
-            if k!=i:
-                TN[i] += confusion[j][k]
+                FP[i] += confusion[j][i]
+                for k in range(7):
+                    if k!=i:
+                        TN[i] += confusion[j][k]
 
     for i in range(7):
         if(TP[i] != 0 or FN[i] !=0):
