@@ -34,7 +34,7 @@ solver = Solver(model, data,
               print_every=100)
 solver.train()
 
-pickle.dump(model, (open("./models/assignment2", "wb")))
+#pickle.dump(model, (open("./models/assignment2", "wb")))
 ##############################################################################
 #                             END OF YOUR CODE                               #
 ##############################################################################
