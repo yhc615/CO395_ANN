@@ -4,7 +4,7 @@ import matplotlib.image as mpimg
 import numpy as np
 
 def confusionMatrix(actual, predicted):
-  confusion = numpy.zeros(shape=(7,7)).astype(int)
+  confusion = np.zeros(shape=(7,7)).astype(int)
   for i,a in enumerate(actual):
     confusion[actual[i]-1][predicted[i]-1] +=1
 
@@ -33,7 +33,7 @@ def conMatStats(confusion):
       precisionrate[i] = float(TP[i])/(TP[i]+FP[i])
     if(precisionrate[i] !=0 or recallrate[i] != 0):
       F1[i] = 2*(precisionrate[i]*recallrate[i])/(precisionrate[i]+recallrate[i])
-    classificationrate = 1-(1/numpy.sum(confusion))*(numpy.sum(confusion)-numpy.trace(confusion))
+    classificationrate = 1-(1/np.sum(confusion))*(np.sum(confusion)-np.trace(confusion))
 
     return TP, FP, TN, FN, recallrate, precisionrate, F1, classificationrate
 
@@ -55,6 +55,7 @@ def test_fer_model(img_folder, model="./models/assignment2"): #Q5
     for filename in os.listdir(img_folder):
         if filename.endswith(".jpg"): 
             img = mpimg.imread(img_folder + "/" + filename)
+            img = img[:,:,0]
             X.append(img)
 
     X = np.asarray(X)
@@ -84,8 +85,9 @@ def test():
     Y=[]
     preds = test_fer_model("./datasets/FER2013/Test/", "./models/assignment2")
     with open("datasets/FER2013/labels_public.txt","r") as labels:
+        Y = []
         for line in labels:
-            _,emotion = line.split(",")
+            img,emotion = line.split(",")
             if (img.split("/")[0] == "Test"):
                 Y.append(int(emotion.split("\n")[0]))
     conMat = confusionMatrix(Y,preds)
