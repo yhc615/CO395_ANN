@@ -1,8 +1,8 @@
 395 Machine Learning: Assignment 2
 =====================================
 Machine Learning assignment that classifies emotions, using CIFAR-10 and FER2013.
-
-#Instructions:
+- report available [here](report.pdf)
+# Instructions:
 
 Please notice that this year, we have an intermediate and an advanced version 
 for the second assignment. Identify if your group consists of: 
